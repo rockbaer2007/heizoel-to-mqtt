@@ -16,7 +16,7 @@ configuration:
     description: Delivery time used for the EasyOil request, matching the ioBroker mask.
   payment_type:
     name: Payment method
-    description: Payment method used for the EasyOil request.
+    description: Payment method used for the EasyOil request, matching the ioBroker mask.
   prod:
     name: Product type
     description: Heating-oil product type used for the EasyOil request, matching the ioBroker mask.

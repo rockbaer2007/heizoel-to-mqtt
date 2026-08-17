@@ -8,7 +8,7 @@ amount: "1000,2000,3000"
 interval: 60
 esyActive: true
 deliveryTimes: ohne
-payment_type: ec
+payment_type: EC-Karte
 prod: Normal Schwefelarm
 unloading_points: 1
 hose: 40
@@ -27,6 +27,8 @@ The app is intended for Germany and Austria only. Use German or Austrian postal 
 `deliveryTimes` uses the same visible values as the ioBroker mask: `ohne`, `7:00 - 12:00 Uhr`, `12:00 - 17:00 Uhr`, `2 Wochentage (Express)`, `3 - 5 Wochentage (Mo.-Fr.)` and `6 - 10 Wochentage (Mo.-Fr.)`.
 
 `prod` uses the visible oil product names from the ioBroker mask: `Normal Schwefelarm`, `Premium Schwefelarm`, `Klimaneutral Premium`, `Klimaneutral Normal`, `Bio 10`, `Bio 15` and `Bio 10 Premium`.
+
+`payment_type` uses the visible payment names from the ioBroker mask: `EC-Karte`, `Barzahlung`, `Ratenkauf`, `Rechnung`, `Lastschrift` and `Vorkasse`.
 
 `hose` is entered as a number in metres. It is mapped to the nearest supported EasyOil hose class internally. `short_vehicle` is shown as `Tankwagen` and accepts `mit Anhänger möglich` or `ohne Anhänger`.
 

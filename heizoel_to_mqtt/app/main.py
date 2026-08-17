@@ -383,7 +383,7 @@ def load_options() -> Options:
         heizoel24_de=bool(raw.get("hoDe", True)),
         heizoel24_at=bool(raw.get("hoAt", False)),
         unloading_points=max(1, min(9, int(raw.get("unloading_points", 1)))),
-        payment_type=str(raw.get("payment_type", "ec")),
+        payment_type=normalize_payment_type(str(raw.get("payment_type", "EC-Karte"))),
         product=normalize_product(str(raw.get("prod", raw.get("product", "normal")))),
         delivery_times=normalize_delivery_time(str(raw.get("deliveryTimes", raw.get("delivery_times", "normal")))),
         hose=normalize_hose(raw.get("hose", "40")),
@@ -450,6 +450,24 @@ def normalize_product(value: str) -> str:
         "bio10Premium": "bio10Premium",
     }
     return products.get(value.strip(), "normal")
+
+
+def normalize_payment_type(value: str) -> str:
+    payment_types = {
+        "EC-Karte": "ec",
+        "ec": "ec",
+        "Barzahlung": "cash",
+        "cash": "cash",
+        "Ratenkauf": "guaranteedPayment",
+        "guaranteedPayment": "guaranteedPayment",
+        "Rechnung": "invoice",
+        "invoice": "invoice",
+        "Lastschrift": "directDebit",
+        "directDebit": "directDebit",
+        "Vorkasse": "inAdvance",
+        "inAdvance": "inAdvance",
+    }
+    return payment_types.get(value.strip(), "ec")
 
 
 def normalize_hose(value: Any) -> str:
