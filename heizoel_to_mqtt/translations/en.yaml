@@ -25,10 +25,10 @@ configuration:
     description: Number of unloading points.
   hose:
     name: Hose length
-    description: Required hose length.
+    description: Required hose length as a number in metres.
   short_vehicle:
-    name: Short vehicle
-    description: Select whether a vehicle without trailer is required.
+    name: Tank truck
+    description: Select whether a tank truck with trailer is possible or a truck without trailer is required.
   hoDe:
     name: Enable Heizöl24 Germany (only postal code and amount are used)
     description: Fetch prices from Heizöl24 Germany. Valid for Germany only; postal code and amount are used.

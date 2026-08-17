@@ -1,5 +1,5 @@
 name: Heizöl to MQTT
-version: "0.1.5"
+version: "0.1.6"
 slug: heizoel_to_mqtt
 description: Publish heating-oil price data to Home Assistant via MQTT Discovery
 url: https://github.com/rockbaer2007/heizoel-to-mqtt
@@ -23,8 +23,8 @@ options:
   payment_type: ec
   prod: normal
   unloading_points: 1
-  hose: fortyMetre
-  short_vehicle: withTrailer
+  hose: 40
+  short_vehicle: mit Anhänger möglich
   hoDe: true
   hoAt: false
   log_response_details: false
@@ -37,8 +37,8 @@ schema:
   payment_type: list(ec|cash|guaranteedPayment|invoice|directDebit|inAdvance)
   prod: list(normal|premium|climateNeutralPremium|climateNeutralNormal|bio10|bio15|bio10Premium)
   unloading_points: int(1,9)
-  hose: list(fortyMetre|sixtyMetre|eightyMetre)
-  short_vehicle: list(withTrailer|withoutTrailer)
+  hose: int(1,100)
+  short_vehicle: "list(mit Anhänger möglich|ohne Anhänger)"
   hoDe: bool
   hoAt: bool
   log_response_details: bool

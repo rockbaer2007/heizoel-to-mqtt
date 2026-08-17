@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6
+
+- Changed hose length to a numeric metre field.
+- Renamed the visible short vehicle option to tank truck and changed its choices to trailer/no-trailer labels.
+
 ## 0.1.5
 
 - Renamed the visible EasyOil switch label.

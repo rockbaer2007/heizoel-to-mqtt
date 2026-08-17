@@ -11,8 +11,8 @@ deliveryTimes: ohne
 payment_type: ec
 prod: normal
 unloading_points: 1
-hose: fortyMetre
-short_vehicle: withTrailer
+hose: 40
+short_vehicle: mit Anhänger möglich
 hoDe: true
 hoAt: false
 log_response_details: false
@@ -25,6 +25,8 @@ log_response_details: false
 The app is intended for Germany and Austria only. Use German or Austrian postal codes that match the selected providers.
 
 `deliveryTimes` uses the same visible values as the ioBroker mask: `ohne`, `7:00 - 12:00 Uhr`, `12:00 - 17:00 Uhr`, `2 Wochentage (Express)`, `3 - 5 Wochentage (Mo.-Fr.)` and `6 - 10 Wochentage (Mo.-Fr.)`.
+
+`hose` is entered as a number in metres. It is mapped to the nearest supported EasyOil hose class internally. `short_vehicle` is shown as `Tankwagen` and accepts `mit Anhänger möglich` or `ohne Anhänger`.
 
 In the German Home Assistant UI, `esyActive` is shown as `EasyOil aktivieren`. `hoDe` and `hoAt` are shown as `Heizöl24 Deutschland aktivieren (Nur PLZ und Menge wird übernommen)` and `Heizöl24 Österreich aktivieren (Nur PLZ und Menge wird übernommen)`.
 

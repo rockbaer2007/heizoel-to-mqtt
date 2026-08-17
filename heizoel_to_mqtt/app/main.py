@@ -386,8 +386,8 @@ def load_options() -> Options:
         payment_type=str(raw.get("payment_type", "ec")),
         product=str(raw.get("prod", raw.get("product", "normal"))),
         delivery_times=normalize_delivery_time(str(raw.get("deliveryTimes", raw.get("delivery_times", "normal")))),
-        hose=str(raw.get("hose", "fortyMetre")),
-        short_vehicle=str(raw.get("short_vehicle", "withTrailer")),
+        hose=normalize_hose(raw.get("hose", "40")),
+        short_vehicle=normalize_tank_truck(str(raw.get("short_vehicle", "mit Anhänger möglich"))),
         log_response_details=bool(raw.get("log_response_details", False)),
         mqtt_host=str(os.getenv("MQTT_HOST", raw.get("mqtt_host", "core-mosquitto"))),
         mqtt_port=int(os.getenv("MQTT_PORT", raw.get("mqtt_port", 1883))),
@@ -430,6 +430,37 @@ def normalize_delivery_time(value: str) -> str:
         "fiveTenDays": "fiveTenDays",
     }
     return delivery_times.get(value.strip(), "normal")
+
+
+def normalize_hose(value: Any) -> str:
+    text = str(value).strip()
+    legacy = {
+        "fortyMetre": "fortyMetre",
+        "sixtyMetre": "sixtyMetre",
+        "eightyMetre": "eightyMetre",
+    }
+    if text in legacy:
+        return legacy[text]
+    try:
+        metres = int(text)
+    except ValueError:
+        LOG.warning("Invalid hose length '%s', using 40 m", value)
+        metres = 40
+    if metres <= 40:
+        return "fortyMetre"
+    if metres <= 60:
+        return "sixtyMetre"
+    return "eightyMetre"
+
+
+def normalize_tank_truck(value: str) -> str:
+    tank_trucks = {
+        "mit Anhänger möglich": "withTrailer",
+        "withTrailer": "withTrailer",
+        "ohne Anhänger": "withoutTrailer",
+        "withoutTrailer": "withoutTrailer",
+    }
+    return tank_trucks.get(value.strip(), "withTrailer")
 
 
 def value_at(data: Any, path: list[str]) -> Any:

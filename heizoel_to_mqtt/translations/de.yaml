@@ -25,10 +25,10 @@ configuration:
     description: Anzahl der Entladestellen.
   hose:
     name: Schlauchlänge
-    description: Benötigte Schlauchlänge.
+    description: Benötigte Schlauchlänge als Zahl in Metern.
   short_vehicle:
-    name: Kurzes Fahrzeug
-    description: Auswahl, ob ein Fahrzeug ohne Anhänger benötigt wird.
+    name: Tankwagen
+    description: Auswahl, ob ein Tankwagen mit Anhänger möglich ist oder ohne Anhänger kommen soll.
   hoDe:
     name: Heizöl24 Deutschland aktivieren (Nur PLZ und Menge wird übernommen)
     description: Preise über Heizöl24 Deutschland abfragen. Nur für Deutschland gültig; übernommen werden PLZ und Menge.
