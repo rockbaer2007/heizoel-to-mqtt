@@ -15,6 +15,8 @@ import requests
 
 
 LOG = logging.getLogger("heizoel_to_mqtt")
+MAX_OFFERS = 6
+LEGACY_MAX_OFFERS = 10
 
 
 @dataclass(frozen=True)
@@ -161,7 +163,7 @@ class HeatingOilClient:
                         delivery_date=str(value_at(offer, ["delivery", "date"]) or ""),
                         rating=round_float(value_at(offer, ["dealer", "rating", "averageRating"])),
                     )
-                    for index, offer in enumerate(sorted_offers[:10], start=1)
+                    for index, offer in enumerate(sorted_offers[:MAX_OFFERS], start=1)
                 ],
             )
         except Exception as exc:
@@ -218,7 +220,7 @@ class HeatingOilClient:
                         delivery_date=str(offer.get("StartDeliveryPeriodDate") or ""),
                         rating=round_float(offer.get("Rating")),
                     )
-                    for index, offer in enumerate(sorted_offers[:10], start=1)
+                    for index, offer in enumerate(sorted_offers[:MAX_OFFERS], start=1)
                 ],
             )
         except Exception as exc:
@@ -257,7 +259,7 @@ class MqttPublisher:
             self._publish(f"{prefix}/dealer", result.dealer)
             self._publish_number(f"{prefix}/delivery_days", result.delivery_days)
             self._publish(f"{prefix}/offers_count", str(result.offers_count))
-            for index in range(1, 11):
+            for index in range(1, MAX_OFFERS + 1):
                 offer = next((item for item in result.offers if item.index == index), None)
                 offer_prefix = f"{prefix}/offers/{index:02d}"
                 self._publish(f"{offer_prefix}/dealer", offer.dealer if offer else "")
@@ -361,7 +363,7 @@ class MqttPublisher:
                     "state_class": "measurement",
                     "icon": "mdi:format-list-numbered",
                 })
-                for index in range(1, 11):
+                for index in range(1, MAX_OFFERS + 1):
                     offer_state_prefix = f"{state_prefix}/offers/{index:02d}"
                     self._publish_config("sensor", f"{object_prefix}_offer_{index:02d}_dealer", {
                         "name": f"{source_name} {amount}l Anbieter {index:02d}",
@@ -401,6 +403,8 @@ class MqttPublisher:
                         "icon": "mdi:currency-eur",
                         "device": self._device(),
                     })
+                for index in range(MAX_OFFERS + 1, LEGACY_MAX_OFFERS + 1):
+                    self._delete_offer_configs(object_prefix, index)
 
     def enabled_sources(self) -> list[tuple[str, str]]:
         result: list[tuple[str, str]] = []
@@ -417,6 +421,13 @@ class MqttPublisher:
 
     def _publish_config(self, component: str, object_id: str, payload: dict[str, Any]) -> None:
         self._publish_json(f"{self.options.discovery_prefix}/{component}/heizoel_to_mqtt/{object_id}/config", payload, retain=True)
+
+    def _delete_config(self, component: str, object_id: str) -> None:
+        self._publish(f"{self.options.discovery_prefix}/{component}/heizoel_to_mqtt/{object_id}/config", "", retain=True)
+
+    def _delete_offer_configs(self, object_prefix: str, index: int) -> None:
+        for suffix in ("dealer", "total_price", "price_per_liter", "price_per_100l"):
+            self._delete_config("sensor", f"{object_prefix}_offer_{index:02d}_{suffix}")
 
     def _publish_json(self, topic: str, payload: dict[str, Any], retain: bool | None = None) -> None:
         self._publish(topic, json.dumps(payload, separators=(",", ":"), ensure_ascii=False), retain=retain)
@@ -494,7 +505,7 @@ def load_options() -> Options:
         payment_type=normalize_payment_type(str(raw.get("payment_type", "EC-Karte"))),
         product=normalize_product(str(raw.get("prod", raw.get("product", "normal")))),
         delivery_times=normalize_delivery_time(str(raw.get("deliveryTimes", raw.get("delivery_times", "normal")))),
-        hose=normalize_hose(raw.get("hose", "40 m")),
+        hose=normalize_hose(raw.get("hose", "40m")),
         short_vehicle=normalize_tank_truck(str(raw.get("short_vehicle", "mit Anhänger möglich"))),
         log_response_details=bool(raw.get("log_response_details", False)),
         mqtt_host=str(os.getenv("MQTT_HOST", raw.get("mqtt_host", "core-mosquitto"))),
@@ -600,7 +611,7 @@ def normalize_hose(value: Any) -> str:
     try:
         metres = int(text)
     except ValueError:
-        LOG.warning("Invalid hose length '%s', using 40 m", value)
+        LOG.warning("Invalid hose length '%s', using 40m", value)
         metres = 40
     if metres <= 40:
         return "fortyMetre"

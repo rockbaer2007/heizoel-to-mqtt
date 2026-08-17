@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.12
+
+- Reduced offer entities from 10 to 6 provider groups.
+- Changed hose options to `40m`, `60m` and `80m`.
+- Added retained MQTT Discovery cleanup for legacy offer entities 07 through 10.
+
 ## 0.1.11
 
 - Changed hose length from a numeric field to the fixed values `40 m`, `60 m` and `80 m`.
