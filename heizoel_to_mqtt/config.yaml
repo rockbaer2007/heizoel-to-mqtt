@@ -1,0 +1,44 @@
+name: Heizöl to MQTT
+version: "0.1.0"
+slug: heizoel_to_mqtt
+description: Publish heating-oil price data to Home Assistant via MQTT Discovery
+url: https://github.com/rockbaer2007/heizoel-to-mqtt
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: services
+boot: auto
+init: false
+services:
+  - mqtt:need
+options:
+  postal_code: ""
+  amounts: "3000"
+  interval: 60
+  esyoil_enabled: true
+  heizoel24_de_enabled: true
+  heizoel24_at_enabled: false
+  unloading_points: 1
+  payment_type: ec
+  product: normal
+  delivery_times: normal
+  hose: fortyMetre
+  short_vehicle: withTrailer
+  log_response_details: false
+schema:
+  postal_code: str
+  amounts: str
+  interval: int(30,1440)
+  esyoil_enabled: bool
+  heizoel24_de_enabled: bool
+  heizoel24_at_enabled: bool
+  unloading_points: int(1,9)
+  payment_type: list(ec|cash|guaranteedPayment|invoice|directDebit|inAdvance)
+  product: list(normal|premium|climateNeutralPremium|climateNeutralNormal|bio10|bio15|bio10Premium)
+  delivery_times: list(normal|weekTimeOne|weekTimeTwo|twoWorkingDays|threeFiveDays|fiveTenDays)
+  hose: list(fortyMetre|sixtyMetre|eightyMetre)
+  short_vehicle: list(withTrailer|withoutTrailer)
+  log_response_details: bool
