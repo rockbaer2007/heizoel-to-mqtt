@@ -1,5 +1,5 @@
 name: Heizöl to MQTT
-version: "0.1.6"
+version: "0.1.7"
 slug: heizoel_to_mqtt
 description: Publish heating-oil price data to Home Assistant via MQTT Discovery
 url: https://github.com/rockbaer2007/heizoel-to-mqtt
@@ -21,7 +21,7 @@ options:
   esyActive: true
   deliveryTimes: ohne
   payment_type: ec
-  prod: normal
+  prod: Normal Schwefelarm
   unloading_points: 1
   hose: 40
   short_vehicle: mit Anhänger möglich
@@ -35,7 +35,7 @@ schema:
   esyActive: bool
   deliveryTimes: "list(ohne|7:00 - 12:00 Uhr|12:00 - 17:00 Uhr|2 Wochentage (Express)|3 - 5 Wochentage (Mo.-Fr.)|6 - 10 Wochentage (Mo.-Fr.))"
   payment_type: list(ec|cash|guaranteedPayment|invoice|directDebit|inAdvance)
-  prod: list(normal|premium|climateNeutralPremium|climateNeutralNormal|bio10|bio15|bio10Premium)
+  prod: "list(Normal Schwefelarm|Premium Schwefelarm|Klimaneutral Premium|Klimaneutral Normal|Bio 10|Bio 15|Bio 10 Premium)"
   unloading_points: int(1,9)
   hose: int(1,100)
   short_vehicle: "list(mit Anhänger möglich|ohne Anhänger)"

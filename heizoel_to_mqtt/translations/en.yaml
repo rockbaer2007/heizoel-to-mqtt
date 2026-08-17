@@ -19,7 +19,7 @@ configuration:
     description: Payment method used for the EasyOil request.
   prod:
     name: Product type
-    description: Heating-oil product type used for the EasyOil request.
+    description: Heating-oil product type used for the EasyOil request, matching the ioBroker mask.
   unloading_points:
     name: Unloading points
     description: Number of unloading points.

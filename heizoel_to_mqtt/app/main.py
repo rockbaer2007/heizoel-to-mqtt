@@ -384,7 +384,7 @@ def load_options() -> Options:
         heizoel24_at=bool(raw.get("hoAt", False)),
         unloading_points=max(1, min(9, int(raw.get("unloading_points", 1)))),
         payment_type=str(raw.get("payment_type", "ec")),
-        product=str(raw.get("prod", raw.get("product", "normal"))),
+        product=normalize_product(str(raw.get("prod", raw.get("product", "normal")))),
         delivery_times=normalize_delivery_time(str(raw.get("deliveryTimes", raw.get("delivery_times", "normal")))),
         hose=normalize_hose(raw.get("hose", "40")),
         short_vehicle=normalize_tank_truck(str(raw.get("short_vehicle", "mit Anhänger möglich"))),
@@ -430,6 +430,26 @@ def normalize_delivery_time(value: str) -> str:
         "fiveTenDays": "fiveTenDays",
     }
     return delivery_times.get(value.strip(), "normal")
+
+
+def normalize_product(value: str) -> str:
+    products = {
+        "Normal Schwefelarm": "normal",
+        "normal": "normal",
+        "Premium Schwefelarm": "premium",
+        "premium": "premium",
+        "Klimaneutral Premium": "climateNeutralPremium",
+        "climateNeutralPremium": "climateNeutralPremium",
+        "Klimaneutral Normal": "climateNeutralNormal",
+        "climateNeutralNormal": "climateNeutralNormal",
+        "Bio 10": "bio10",
+        "bio10": "bio10",
+        "Bio 15": "bio15",
+        "bio15": "bio15",
+        "Bio 10 Premium": "bio10Premium",
+        "bio10Premium": "bio10Premium",
+    }
+    return products.get(value.strip(), "normal")
 
 
 def normalize_hose(value: Any) -> str:

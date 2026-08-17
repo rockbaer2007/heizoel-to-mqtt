@@ -19,7 +19,7 @@ configuration:
     description: Zahlungsart für die EasyOil-Abfrage.
   prod:
     name: Sorte
-    description: Heizöl-Sorte für die EasyOil-Abfrage.
+    description: Heizöl-Sorte für die EasyOil-Abfrage wie in der ioBroker-Maske.
   unloading_points:
     name: Entladestellen
     description: Anzahl der Entladestellen.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.7
+
+- Changed visible oil product options to the German ioBroker mask labels.
+- Added runtime mapping from German product labels to EasyOil request codes.
+
 ## 0.1.6
 
 - Changed hose length to a numeric metre field.
