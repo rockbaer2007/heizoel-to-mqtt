@@ -45,6 +45,8 @@ Only use German or Austrian postal codes that match the selected providers.
 
 - [Mushroom provider card](./examples/mushroom-provider-card.yaml) for one Esyoil offer with provider, price per liter, price per 100 liters and total price.
 
+![Heizöl to MQTT Mushroom provider card](./examples/heizoel-to-mqtt.png)
+
 ## Privacy
 
 The configured postal code, amount and delivery options are sent to the selected external price providers. Do not enable sources you do not want to query.

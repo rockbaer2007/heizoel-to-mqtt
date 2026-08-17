@@ -38,6 +38,8 @@ The price lookups are valid for Germany and Austria only.
 
 A Mushroom provider card example is available in [`../examples/mushroom-provider-card.yaml`](../examples/mushroom-provider-card.yaml).
 
+![Heizöl to MQTT Mushroom provider card](../examples/heizoel-to-mqtt.png)
+
 ## Configuration Mask
 
 The visible configuration keys follow the original ioBroker adapter masks:
