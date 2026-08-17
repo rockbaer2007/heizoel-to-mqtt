@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.14
+
+- Publish price sensors with two decimal places and add Home Assistant discovery precision hints for price entities.
+
 ## 0.1.13
 
 - Accept legacy hose values with spaces (`40 m`, `60 m`, `80 m`) so existing Home Assistant app options can be saved and migrated.

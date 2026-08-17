@@ -55,9 +55,9 @@ class OfferResult:
 
     def price_per_liter(self, amount: int) -> float | None:
         if self.price_per_100l is not None:
-            return round(self.price_per_100l / 100, 4)
+            return round(self.price_per_100l / 100, 2)
         if self.total_price is not None and amount > 0:
-            return round(self.total_price / amount, 4)
+            return round(self.total_price / amount, 2)
         return None
 
 
@@ -254,8 +254,8 @@ class MqttPublisher:
         self._publish(f"{self.options.base_topic}/last_update", datetime.now(timezone.utc).isoformat())
         for result in results:
             prefix = f"{self.options.base_topic}/{result.source}/{result.amount}"
-            self._publish_number(f"{prefix}/price_per_100l", result.price_per_100l)
-            self._publish_number(f"{prefix}/total_price", result.total_price)
+            self._publish_number(f"{prefix}/price_per_100l", result.price_per_100l, decimals=2)
+            self._publish_number(f"{prefix}/total_price", result.total_price, decimals=2)
             self._publish(f"{prefix}/dealer", result.dealer)
             self._publish_number(f"{prefix}/delivery_days", result.delivery_days)
             self._publish(f"{prefix}/offers_count", str(result.offers_count))
@@ -263,9 +263,9 @@ class MqttPublisher:
                 offer = next((item for item in result.offers if item.index == index), None)
                 offer_prefix = f"{prefix}/offers/{index:02d}"
                 self._publish(f"{offer_prefix}/dealer", offer.dealer if offer else "")
-                self._publish_number(f"{offer_prefix}/total_price", offer.total_price if offer else None)
-                self._publish_number(f"{offer_prefix}/price_per_liter", offer.price_per_liter(result.amount) if offer else None)
-                self._publish_number(f"{offer_prefix}/price_per_100l", offer.price_per_100l if offer else None)
+                self._publish_number(f"{offer_prefix}/total_price", offer.total_price if offer else None, decimals=2)
+                self._publish_number(f"{offer_prefix}/price_per_liter", offer.price_per_liter(result.amount) if offer else None, decimals=2)
+                self._publish_number(f"{offer_prefix}/price_per_100l", offer.price_per_100l if offer else None, decimals=2)
                 self._publish_json(f"{offer_prefix}/attributes", {
                     "source": result.source_name,
                     "amount": result.amount,
@@ -328,6 +328,7 @@ class MqttPublisher:
                     "state_topic": f"{state_prefix}/price_per_100l",
                     "unit_of_measurement": "EUR/100L",
                     "state_class": "measurement",
+                    "suggested_display_precision": 2,
                     "icon": "mdi:currency-eur",
                 })
                 self._publish_config("sensor", f"{object_prefix}_total_price", {
@@ -337,6 +338,7 @@ class MqttPublisher:
                     "state_topic": f"{state_prefix}/total_price",
                     "unit_of_measurement": "EUR",
                     "state_class": "measurement",
+                    "suggested_display_precision": 2,
                     "icon": "mdi:cash",
                 })
                 self._publish_config("sensor", f"{object_prefix}_dealer", {
@@ -380,6 +382,7 @@ class MqttPublisher:
                         "json_attributes_topic": f"{offer_state_prefix}/attributes",
                         "unit_of_measurement": "EUR",
                         "state_class": "measurement",
+                        "suggested_display_precision": 2,
                         "icon": "mdi:cash",
                         "device": self._device(),
                     })
@@ -390,6 +393,7 @@ class MqttPublisher:
                         "json_attributes_topic": f"{offer_state_prefix}/attributes",
                         "unit_of_measurement": "EUR/L",
                         "state_class": "measurement",
+                        "suggested_display_precision": 2,
                         "icon": "mdi:currency-eur",
                         "device": self._device(),
                     })
@@ -400,6 +404,7 @@ class MqttPublisher:
                         "json_attributes_topic": f"{offer_state_prefix}/attributes",
                         "unit_of_measurement": "EUR/100L",
                         "state_class": "measurement",
+                        "suggested_display_precision": 2,
                         "icon": "mdi:currency-eur",
                         "device": self._device(),
                     })
@@ -432,8 +437,13 @@ class MqttPublisher:
     def _publish_json(self, topic: str, payload: dict[str, Any], retain: bool | None = None) -> None:
         self._publish(topic, json.dumps(payload, separators=(",", ":"), ensure_ascii=False), retain=retain)
 
-    def _publish_number(self, topic: str, value: float | int | None) -> None:
-        self._publish(topic, "" if value is None else str(value))
+    def _publish_number(self, topic: str, value: float | int | None, decimals: int | None = None) -> None:
+        if value is None:
+            self._publish(topic, "")
+        elif decimals is None:
+            self._publish(topic, str(value))
+        else:
+            self._publish(topic, f"{float(value):.{decimals}f}")
 
     def _publish(self, topic: str, payload: str, retain: bool | None = None) -> None:
         self.client.publish(topic, payload, qos=0, retain=self.options.retain if retain is None else retain)
