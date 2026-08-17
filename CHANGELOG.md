@@ -3,6 +3,7 @@
 ## 0.1.3
 
 - Added German and English Home Assistant app configuration translations.
+- Documented that provider lookups are intended for Germany and Austria only.
 
 ## 0.1.2
 

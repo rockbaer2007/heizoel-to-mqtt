@@ -1,7 +1,7 @@
 configuration:
   plz:
     name: Postleitzahl
-    description: Postleitzahl für die Preisabfrage.
+    description: Deutsche oder österreichische Postleitzahl für die Preisabfrage.
   amount:
     name: Menge in Litern
     description: Eine oder mehrere Mengen in Litern, mit Komma getrennt, zum Beispiel 1000,2000,3000.
@@ -13,7 +13,7 @@ configuration:
     description: Preise über EsyOil abfragen.
   deliveryTimes:
     name: Liefertermin
-    description: Liefertermin fuer die EsyOil-Abfrage.
+    description: Liefertermin für die EsyOil-Abfrage.
   payment_type:
     name: Zahlungsart
     description: Zahlungsart für die EsyOil-Abfrage.
@@ -31,10 +31,10 @@ configuration:
     description: Auswahl, ob ein Fahrzeug ohne Anhänger benötigt wird.
   hoDe:
     name: Heizöl24 Deutschland aktivieren
-    description: Preise über Heizöl24 Deutschland abfragen.
+    description: Preise über Heizöl24 Deutschland abfragen. Nur für Deutschland gültig.
   hoAt:
     name: Heizöl24 Österreich aktivieren
-    description: Preise über Heizöl24 Österreich abfragen.
+    description: Preise über Heizöl24 Österreich abfragen. Nur für Österreich gültig.
   log_response_details:
     name: Rohantworten protokollieren
     description: Anbieter-Antworten im App-Protokoll ausgeben. Nur zur Fehlersuche aktivieren.

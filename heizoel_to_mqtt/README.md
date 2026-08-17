@@ -26,6 +26,8 @@ It also creates:
 - Heizöl24 DE
 - Heizöl24 AT
 
+The price lookups are valid for Germany and Austria only.
+
 ## Configuration Mask
 
 The visible configuration keys follow the original ioBroker adapter masks:
@@ -46,6 +48,8 @@ The visible configuration keys follow the original ioBroker adapter masks:
 Home Assistant shows translated configuration labels when the active UI language is German or English.
 
 Heizöl24 uses postal code and amount like the original adapter note says. The detailed delivery, payment, product, hose and vehicle options are used for Esyoil.
+
+Only use German or Austrian postal codes that match the selected providers.
 
 ## Notes
 

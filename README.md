@@ -2,7 +2,7 @@
 
 Home Assistant app repository for publishing heating-oil price data through MQTT Discovery.
 
-The app polls public price calculator endpoints from Esyoil and Heizöl24 and creates Home Assistant MQTT sensors for configured postal codes and amounts.
+The app polls public price calculator endpoints from Esyoil and Heizöl24 and creates Home Assistant MQTT sensors for configured postal codes and amounts. It is intended for Germany and Austria only.
 
 Adapted from and inspired by the original ioBroker adapter:
 [TA2k/ioBroker.heizoel](https://github.com/TA2k/ioBroker.heizoel)
@@ -29,6 +29,7 @@ Adapted from and inspired by the original ioBroker adapter:
 - Esyoil price lookup.
 - Heizöl24 Germany price lookup.
 - Heizöl24 Austria price lookup.
+- Valid for German and Austrian postal codes only.
 - Multiple liter amounts, for example `1000,2000,3000`.
 - Configuration keys aligned with the original ioBroker masks, for example `plz`, `amount`, `esyActive`, `deliveryTimes`, `payment_type`, `prod`, `unloading_points`, `hose`, `short_vehicle`, `hoDe` and `hoAt`.
 - German and English Home Assistant configuration translations.
@@ -36,6 +37,8 @@ Adapted from and inspired by the original ioBroker adapter:
 - Attributes with the best offer and selected request parameters.
 
 Heizöl24 uses postal code and amount like the original adapter note says. The detailed delivery, payment, product, hose and vehicle options are used for Esyoil.
+
+Only use German or Austrian postal codes that match the selected providers.
 
 ## Privacy
 

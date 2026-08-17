@@ -1,7 +1,7 @@
 configuration:
   plz:
     name: Postal code
-    description: Postal code used for price lookups.
+    description: German or Austrian postal code used for price lookups.
   amount:
     name: Amount in liters
     description: One or more liter amounts separated by commas, for example 1000,2000,3000.
@@ -31,10 +31,10 @@ configuration:
     description: Select whether a vehicle without trailer is required.
   hoDe:
     name: Enable Heizöl24 Germany
-    description: Fetch prices from Heizöl24 Germany.
+    description: Fetch prices from Heizöl24 Germany. Valid for Germany only.
   hoAt:
     name: Enable Heizöl24 Austria
-    description: Fetch prices from Heizöl24 Austria.
+    description: Fetch prices from Heizöl24 Austria. Valid for Austria only.
   log_response_details:
     name: Log raw responses
     description: Write provider responses to the app log. Enable only for troubleshooting.
