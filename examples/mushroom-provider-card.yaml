@@ -1,0 +1,31 @@
+type: custom:mushroom-template-card
+entity: sensor.heizol_to_mqtt_esyoil_3000l_anbieter_01
+primary: |
+  {{ states('sensor.heizol_to_mqtt_esyoil_3000l_anbieter_01') }}
+secondary: >
+  💶 {{ states('sensor.heizol_to_mqtt_esyoil_3000l_anbieter_01_preis_pro_liter') }}
+  €/L   📦 {{ states('sensor.heizol_to_mqtt_esyoil_3000l_anbieter_01_preis_pro_100l') }}
+  € / 100L   🧾 Gesamt: {{ states('sensor.heizol_to_mqtt_esyoil_3000l_anbieter_01_gesamtpreis') }} €
+icon: mdi:oil
+multiline_secondary: true
+grid_options:
+  columns: 12
+  rows: auto
+color: >
+  {% set p = states('sensor.heizol_to_mqtt_esyoil_3000l_anbieter_01_preis_pro_liter') | float(0) %}
+  {% if p < 1.00 %}
+    green
+  {% elif p < 1.20 %}
+    orange
+  {% else %}
+    red
+  {% endif %}
+vertical: true
+features_position: bottom
+card_mod:
+  style: |
+    ha-card {
+      background: var(--ha-card-background, var(--card-background-color));
+      border: 0.2px solid var(--primary-color);
+      border-radius: 12px;
+    }

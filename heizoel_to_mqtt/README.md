@@ -34,6 +34,10 @@ It also creates:
 
 The price lookups are valid for Germany and Austria only.
 
+## Lovelace Example
+
+A Mushroom provider card example is available in [`../examples/mushroom-provider-card.yaml`](../examples/mushroom-provider-card.yaml).
+
 ## Configuration Mask
 
 The visible configuration keys follow the original ioBroker adapter masks:

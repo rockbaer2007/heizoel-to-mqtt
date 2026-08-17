@@ -41,6 +41,10 @@ Heizöl24 uses postal code and amount like the original adapter note says. The d
 
 Only use German or Austrian postal codes that match the selected providers.
 
+## Examples
+
+- [Mushroom provider card](./examples/mushroom-provider-card.yaml) for one Esyoil offer with provider, price per liter, price per 100 liters and total price.
+
 ## Privacy
 
 The configured postal code, amount and delivery options are sent to the selected external price providers. Do not enable sources you do not want to query.
