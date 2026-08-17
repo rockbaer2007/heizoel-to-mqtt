@@ -7,7 +7,7 @@ plz: "10115"
 amount: "1000,2000,3000"
 interval: 60
 esyActive: true
-deliveryTimes: normal
+deliveryTimes: ohne
 payment_type: ec
 prod: normal
 unloading_points: 1
@@ -23,6 +23,8 @@ log_response_details: false
 `amount` accepts a comma-separated list of liter amounts.
 
 The app is intended for Germany and Austria only. Use German or Austrian postal codes that match the selected providers.
+
+`deliveryTimes` uses the same visible values as the ioBroker mask: `ohne`, `7:00 - 12:00 Uhr`, `12:00 - 17:00 Uhr`, `2 Wochentage (Express)`, `3 - 5 Wochentage (Mo.-Fr.)` and `6 - 10 Wochentage (Mo.-Fr.)`.
 
 The visible configuration keys follow the original ioBroker adapter masks. Older `0.1.0` names for postal code, amount, product and delivery time are still accepted as fallback, but provider toggles use `esyActive`, `hoDe` and `hoAt`.
 

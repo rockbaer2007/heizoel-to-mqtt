@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4
+
+- Changed visible delivery time options to the German ioBroker mask labels.
+- Added runtime mapping from German delivery time labels to EsyOil request codes.
+
 ## 0.1.3
 
 - Added German and English Home Assistant app configuration translations.

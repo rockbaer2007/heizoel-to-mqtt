@@ -13,7 +13,7 @@ configuration:
     description: Preise über EsyOil abfragen.
   deliveryTimes:
     name: Liefertermin
-    description: Liefertermin für die EsyOil-Abfrage.
+    description: Liefertermin für die EsyOil-Abfrage wie in der ioBroker-Maske.
   payment_type:
     name: Zahlungsart
     description: Zahlungsart für die EsyOil-Abfrage.

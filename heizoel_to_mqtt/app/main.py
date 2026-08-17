@@ -385,7 +385,7 @@ def load_options() -> Options:
         unloading_points=max(1, min(9, int(raw.get("unloading_points", 1)))),
         payment_type=str(raw.get("payment_type", "ec")),
         product=str(raw.get("prod", raw.get("product", "normal"))),
-        delivery_times=str(raw.get("deliveryTimes", raw.get("delivery_times", "normal"))),
+        delivery_times=normalize_delivery_time(str(raw.get("deliveryTimes", raw.get("delivery_times", "normal")))),
         hose=str(raw.get("hose", "fortyMetre")),
         short_vehicle=str(raw.get("short_vehicle", "withTrailer")),
         log_response_details=bool(raw.get("log_response_details", False)),
@@ -412,6 +412,24 @@ def parse_amounts(value: str) -> list[int]:
         if amount > 0 and amount not in amounts:
             amounts.append(amount)
     return amounts or [3000]
+
+
+def normalize_delivery_time(value: str) -> str:
+    delivery_times = {
+        "ohne": "normal",
+        "normal": "normal",
+        "7:00 - 12:00 Uhr": "weekTimeOne",
+        "weekTimeOne": "weekTimeOne",
+        "12:00 - 17:00 Uhr": "weekTimeTwo",
+        "weekTimeTwo": "weekTimeTwo",
+        "2 Wochentage (Express)": "twoWorkingDays",
+        "twoWorkingDays": "twoWorkingDays",
+        "3 - 5 Wochentage (Mo.-Fr.)": "threeFiveDays",
+        "threeFiveDays": "threeFiveDays",
+        "6 - 10 Wochentage (Mo.-Fr.)": "fiveTenDays",
+        "fiveTenDays": "fiveTenDays",
+    }
+    return delivery_times.get(value.strip(), "normal")
 
 
 def value_at(data: Any, path: list[str]) -> Any:

@@ -13,7 +13,7 @@ configuration:
     description: Fetch prices from EsyOil.
   deliveryTimes:
     name: Delivery time
-    description: Delivery time used for the EsyOil request.
+    description: Delivery time used for the EsyOil request, matching the ioBroker mask.
   payment_type:
     name: Payment method
     description: Payment method used for the EsyOil request.
