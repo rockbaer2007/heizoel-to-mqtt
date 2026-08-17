@@ -1,5 +1,7 @@
 # Heizöl to MQTT
 
+![Heizöl to MQTT icon](./heizoel_to_mqtt/icon.png)
+
 Home Assistant app repository for publishing heating-oil price data through MQTT Discovery.
 
 The app polls public price calculator endpoints from Esyoil and Heizöl24 and creates Home Assistant MQTT sensors for configured postal codes and amounts. It is intended for Germany and Austria only.
@@ -46,6 +48,8 @@ Only use German or Austrian postal codes that match the selected providers.
 - [Mushroom provider card](./examples/mushroom-provider-card.yaml) for one Esyoil offer with provider, price per liter, price per 100 liters and total price.
 
 ![Heizöl to MQTT Mushroom provider card](./examples/heizoel-to-mqtt.png)
+
+Editable icon sources live in [`assets`](./assets).
 
 ## Privacy
 

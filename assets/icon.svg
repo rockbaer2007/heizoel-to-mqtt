@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Heizoel to MQTT icon</title>
+  <desc id="desc">Heating oil drop combined with MQTT network nodes.</desc>
+  <defs>
+    <linearGradient id="drop" x1="164" y1="68" x2="350" y2="414" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff176"/>
+      <stop offset=".46" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+    <linearGradient id="mqtt" x1="250" y1="238" x2="420" y2="384" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22c55e"/>
+      <stop offset="1" stop-color="#0ea5e9"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="40" width="432" height="432" rx="96" fill="#111827"/>
+  <path d="M244 77c-47 73-99 143-99 220 0 77 50 135 111 135s111-58 111-135c0-77-54-147-101-220-5-8-17-8-22 0z" fill="url(#drop)"/>
+  <path d="M215 154c-32 51-55 94-55 142 0 42 21 79 52 99-12-25-15-56-5-90 11-39 38-82 67-128 7-11-52-33-59-23z" fill="#fff8c7" opacity=".55"/>
+  <path d="M265 308h72m0 0 52-52m-52 52 52 52" fill="none" stroke="url(#mqtt)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="265" cy="308" r="24" fill="#111827" stroke="#22c55e" stroke-width="16"/>
+  <circle cx="389" cy="256" r="24" fill="#111827" stroke="#22c55e" stroke-width="16"/>
+  <circle cx="389" cy="360" r="24" fill="#111827" stroke="#0ea5e9" stroke-width="16"/>
+</svg>

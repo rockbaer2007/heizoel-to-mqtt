@@ -40,6 +40,8 @@ A Mushroom provider card example is available in [`../examples/mushroom-provider
 
 ![Heizöl to MQTT Mushroom provider card](../examples/heizoel-to-mqtt.png)
 
+Editable icon sources live in [`../assets`](../assets).
+
 ## Configuration Mask
 
 The visible configuration keys follow the original ioBroker adapter masks:

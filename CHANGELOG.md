@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.15
+
+- Added app icon and logo assets for the Home Assistant app store and repository documentation.
+
 ## 0.1.14
 
 - Publish price sensors with two decimal places and add Home Assistant discovery precision hints for price entities.
