@@ -25,7 +25,7 @@ configuration:
     description: Number of unloading points.
   hose:
     name: Hose length
-    description: Required hose length as a number in metres.
+    description: "Required hose length: 40 m, 60 m or 80 m."
   short_vehicle:
     name: Tank truck
     description: Select whether a tank truck with trailer is possible or a truck without trailer is required.

@@ -25,7 +25,7 @@ configuration:
     description: Anzahl der Entladestellen.
   hose:
     name: Schlauchlänge
-    description: Benötigte Schlauchlänge als Zahl in Metern.
+    description: "Benötigte Schlauchlänge: 40 m, 60 m oder 80 m."
   short_vehicle:
     name: Tankwagen
     description: Auswahl, ob ein Tankwagen mit Anhänger möglich ist oder ohne Anhänger kommen soll.

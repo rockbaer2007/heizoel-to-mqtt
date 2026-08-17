@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.11
+
+- Changed hose length from a numeric field to the fixed values `40 m`, `60 m` and `80 m`.
+- Quoted the visible payment option schema so Home Assistant keeps the German labels.
+
 ## 0.1.10
 
 - Added total price, price per litre and price per 100 litres as separate entities for each of the first 10 offers.

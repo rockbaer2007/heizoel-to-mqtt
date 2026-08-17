@@ -494,7 +494,7 @@ def load_options() -> Options:
         payment_type=normalize_payment_type(str(raw.get("payment_type", "EC-Karte"))),
         product=normalize_product(str(raw.get("prod", raw.get("product", "normal")))),
         delivery_times=normalize_delivery_time(str(raw.get("deliveryTimes", raw.get("delivery_times", "normal")))),
-        hose=normalize_hose(raw.get("hose", "40")),
+        hose=normalize_hose(raw.get("hose", "40 m")),
         short_vehicle=normalize_tank_truck(str(raw.get("short_vehicle", "mit Anhänger möglich"))),
         log_response_details=bool(raw.get("log_response_details", False)),
         mqtt_host=str(os.getenv("MQTT_HOST", raw.get("mqtt_host", "core-mosquitto"))),
@@ -587,6 +587,16 @@ def normalize_hose(value: Any) -> str:
     }
     if text in legacy:
         return legacy[text]
+    fixed = {
+        "40 m": "fortyMetre",
+        "40m": "fortyMetre",
+        "60 m": "sixtyMetre",
+        "60m": "sixtyMetre",
+        "80 m": "eightyMetre",
+        "80m": "eightyMetre",
+    }
+    if text in fixed:
+        return fixed[text]
     try:
         metres = int(text)
     except ValueError:
