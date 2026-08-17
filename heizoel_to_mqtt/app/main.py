@@ -22,9 +22,9 @@ class Options:
     postal_code: str
     amounts: list[int]
     interval: int
-    esyoil_enabled: bool
-    heizoel24_de_enabled: bool
-    heizoel24_at_enabled: bool
+    esyoil: bool
+    heizoel24_de: bool
+    heizoel24_at: bool
     unloading_points: int
     payment_type: str
     product: str
@@ -76,15 +76,15 @@ class HeatingOilClient:
     def poll(self) -> list[PriceResult]:
         results: list[PriceResult] = []
         for amount in self.options.amounts:
-            if self.options.esyoil_enabled:
+            if self.options.esyoil:
                 result = self.fetch_esyoil(amount)
                 if result:
                     results.append(result)
-            if self.options.heizoel24_de_enabled:
+            if self.options.heizoel24_de:
                 result = self.fetch_heizoel24(amount, country_id=1)
                 if result:
                     results.append(result)
-            if self.options.heizoel24_at_enabled:
+            if self.options.heizoel24_at:
                 result = self.fetch_heizoel24(amount, country_id=2)
                 if result:
                     results.append(result)
@@ -297,11 +297,11 @@ class MqttPublisher:
 
     def enabled_sources(self) -> list[tuple[str, str]]:
         result: list[tuple[str, str]] = []
-        if self.options.esyoil_enabled:
+        if self.options.esyoil:
             result.append(("esyoil", "Esyoil"))
-        if self.options.heizoel24_de_enabled:
+        if self.options.heizoel24_de:
             result.append(("heizoel24_de", "Heizöl24 DE"))
-        if self.options.heizoel24_at_enabled:
+        if self.options.heizoel24_at:
             result.append(("heizoel24_at", "Heizöl24 AT"))
         return result
 
@@ -379,9 +379,9 @@ def load_options() -> Options:
         postal_code=str(raw.get("plz", raw.get("postal_code", os.getenv("POSTAL_CODE", "")))).strip(),
         amounts=parse_amounts(str(raw.get("amount", raw.get("amounts", os.getenv("AMOUNTS", "3000"))))),
         interval=max(30, int(raw.get("interval", os.getenv("INTERVAL", "60")))),
-        esyoil_enabled=bool(raw.get("esyActive", raw.get("esyoil_enabled", True))),
-        heizoel24_de_enabled=bool(raw.get("hoDe", raw.get("heizoel24_de_enabled", True))),
-        heizoel24_at_enabled=bool(raw.get("hoAt", raw.get("heizoel24_at_enabled", False))),
+        esyoil=bool(raw.get("esyActive", True)),
+        heizoel24_de=bool(raw.get("hoDe", True)),
+        heizoel24_at=bool(raw.get("hoAt", False)),
         unloading_points=max(1, min(9, int(raw.get("unloading_points", 1)))),
         payment_type=str(raw.get("payment_type", "ec")),
         product=str(raw.get("prod", raw.get("product", "normal"))),

@@ -22,7 +22,7 @@ log_response_details: false
 
 `amount` accepts a comma-separated list of liter amounts.
 
-The visible configuration keys follow the original ioBroker adapter masks. Older `0.1.0` keys such as `postal_code`, `amounts`, `esyoil_enabled`, `heizoel24_de_enabled`, `heizoel24_at_enabled`, `product` and `delivery_times` are still accepted as fallback.
+The visible configuration keys follow the original ioBroker adapter masks. Older `0.1.0` names for postal code, amount, product and delivery time are still accepted as fallback, but provider toggles use `esyActive`, `hoDe` and `hoAt`.
 
 Heizöl24 uses postal code and amount like the original adapter note says. The detailed delivery, payment, product, hose and vehicle options are used for Esyoil.
 

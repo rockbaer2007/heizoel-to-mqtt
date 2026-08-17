@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Removed legacy `_enabled` provider option names from the runtime configuration path and public documentation.
+
 ## 0.1.1
 
 - Changed visible configuration keys to match the original ioBroker adapter masks.
