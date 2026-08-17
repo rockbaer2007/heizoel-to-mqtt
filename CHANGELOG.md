@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.9
+
+- Added MQTT Discovery sensors for the provider names of the first 10 offers per source and amount.
+- Added offer attributes with price, delivery, rating and rank for those provider sensors.
+
 ## 0.1.8
 
 - Changed visible payment options to the German ioBroker mask labels.

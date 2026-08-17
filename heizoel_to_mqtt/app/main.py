@@ -42,6 +42,17 @@ class Options:
 
 
 @dataclass(frozen=True)
+class OfferResult:
+    index: int
+    dealer: str
+    price_per_100l: float | None
+    total_price: float | None
+    delivery_days: int | None
+    delivery_date: str
+    rating: float | None
+
+
+@dataclass(frozen=True)
 class PriceResult:
     source: str
     source_name: str
@@ -53,6 +64,7 @@ class PriceResult:
     delivery_days: int | None
     delivery_date: str
     rating: float | None
+    offers: list[OfferResult]
     currency: str = "EUR"
 
     @property
@@ -119,7 +131,8 @@ class HeatingOilClient:
             offers = data.get("data") if isinstance(data, dict) else None
             if not isinstance(offers, list) or not offers:
                 return empty_result("esyoil", "Esyoil", amount)
-            best = sorted(offers, key=lambda item: value_at(item, ["pricing", "_100L", "brutto"]) or float("inf"))[0]
+            sorted_offers = sorted(offers, key=lambda item: value_at(item, ["pricing", "_100L", "brutto"]) or float("inf"))
+            best = sorted_offers[0]
             return PriceResult(
                 source="esyoil",
                 source_name="Esyoil",
@@ -131,6 +144,18 @@ class HeatingOilClient:
                 delivery_days=int_value(value_at(best, ["delivery", "durationDays"])),
                 delivery_date=str(value_at(best, ["delivery", "date"]) or ""),
                 rating=round_float(value_at(best, ["dealer", "rating", "averageRating"])),
+                offers=[
+                    OfferResult(
+                        index=index,
+                        price_per_100l=round_float(value_at(offer, ["pricing", "_100L", "brutto"])),
+                        total_price=round_float(value_at(offer, ["pricing", "total", "brutto"])),
+                        dealer=str(value_at(offer, ["dealer", "name"]) or value_at(offer, ["dealer", "shortName"]) or ""),
+                        delivery_days=int_value(value_at(offer, ["delivery", "durationDays"])),
+                        delivery_date=str(value_at(offer, ["delivery", "date"]) or ""),
+                        rating=round_float(value_at(offer, ["dealer", "rating", "averageRating"])),
+                    )
+                    for index, offer in enumerate(sorted_offers[:10], start=1)
+                ],
             )
         except Exception as exc:
             LOG.warning("Could not fetch Esyoil price for %sl: %s", amount, exc)
@@ -163,7 +188,8 @@ class HeatingOilClient:
             offers = data.get("Items") if isinstance(data, dict) else None
             if not isinstance(offers, list) or not offers:
                 return empty_result(source, source_name, amount)
-            best = sorted(offers, key=lambda item: item.get("UnitPrice") or float("inf"))[0]
+            sorted_offers = sorted(offers, key=lambda item: item.get("UnitPrice") or float("inf"))
+            best = sorted_offers[0]
             return PriceResult(
                 source=source,
                 source_name=source_name,
@@ -175,6 +201,18 @@ class HeatingOilClient:
                 delivery_days=int_value(best.get("DeliveryPeriodDays")),
                 delivery_date=str(best.get("StartDeliveryPeriodDate") or ""),
                 rating=round_float(best.get("Rating")),
+                offers=[
+                    OfferResult(
+                        index=index,
+                        price_per_100l=round_float(offer.get("UnitPrice")),
+                        total_price=round_float(offer.get("TotalPrice")),
+                        dealer=str(offer.get("Name") or ""),
+                        delivery_days=int_value(offer.get("DeliveryPeriodDays")),
+                        delivery_date=str(offer.get("StartDeliveryPeriodDate") or ""),
+                        rating=round_float(offer.get("Rating")),
+                    )
+                    for index, offer in enumerate(sorted_offers[:10], start=1)
+                ],
             )
         except Exception as exc:
             LOG.warning("Could not fetch %s price for %sl: %s", source_name, amount, exc)
@@ -212,6 +250,23 @@ class MqttPublisher:
             self._publish(f"{prefix}/dealer", result.dealer)
             self._publish_number(f"{prefix}/delivery_days", result.delivery_days)
             self._publish(f"{prefix}/offers_count", str(result.offers_count))
+            for index in range(1, 11):
+                offer = next((item for item in result.offers if item.index == index), None)
+                offer_prefix = f"{prefix}/offers/{index:02d}"
+                self._publish(f"{offer_prefix}/dealer", offer.dealer if offer else "")
+                self._publish_json(f"{offer_prefix}/attributes", {
+                    "source": result.source_name,
+                    "amount": result.amount,
+                    "postal_code": self.options.postal_code,
+                    "rank": index,
+                    "price_per_100l": offer.price_per_100l if offer else None,
+                    "total_price": offer.total_price if offer else None,
+                    "dealer": offer.dealer if offer else "",
+                    "delivery_days": offer.delivery_days if offer else None,
+                    "delivery_date": offer.delivery_date if offer else "",
+                    "rating": offer.rating if offer else None,
+                    "currency": result.currency,
+                })
             self._publish_json(f"{prefix}/attributes", {
                 "source": result.source_name,
                 "amount": result.amount,
@@ -223,6 +278,7 @@ class MqttPublisher:
                 "delivery_date": result.delivery_date,
                 "rating": result.rating,
                 "offers_count": result.offers_count,
+                "published_offers": len(result.offers),
                 "currency": result.currency,
             })
         LOG.info("Published %s heating oil price result groups", len(results))
@@ -294,6 +350,16 @@ class MqttPublisher:
                     "state_class": "measurement",
                     "icon": "mdi:format-list-numbered",
                 })
+                for index in range(1, 11):
+                    offer_state_prefix = f"{state_prefix}/offers/{index:02d}"
+                    self._publish_config("sensor", f"{object_prefix}_offer_{index:02d}_dealer", {
+                        "name": f"{source_name} {amount}l Anbieter {index:02d}",
+                        "unique_id": f"heizoel_to_mqtt_{object_prefix}_offer_{index:02d}_dealer",
+                        "state_topic": f"{offer_state_prefix}/dealer",
+                        "json_attributes_topic": f"{offer_state_prefix}/attributes",
+                        "icon": "mdi:store",
+                        "device": self._device(),
+                    })
 
     def enabled_sources(self) -> list[tuple[str, str]]:
         result: list[tuple[str, str]] = []
@@ -364,6 +430,7 @@ def empty_result(source: str, source_name: str, amount: int) -> PriceResult:
         delivery_days=None,
         delivery_date="",
         rating=None,
+        offers=[],
     )
 
 

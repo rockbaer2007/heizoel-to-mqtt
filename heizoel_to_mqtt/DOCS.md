@@ -40,6 +40,16 @@ Heizöl24 uses postal code and amount like the original adapter note says. The d
 
 `log_response_details` writes raw provider responses to the app log. Enable it only for troubleshooting because responses may contain regional offer details.
 
+## Offer Entities
+
+For each enabled source and amount, the app publishes up to 10 offer-provider sensors:
+
+- `{source} {amount}l Anbieter 01`
+- ...
+- `{source} {amount}l Anbieter 10`
+
+The state is the provider name. Attributes contain rank, price per 100 litres, total price, delivery days, delivery date, rating and currency.
+
 ## Attribution
 
 This app is adapted from and inspired by the original ioBroker adapter:

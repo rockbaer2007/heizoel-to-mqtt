@@ -14,6 +14,9 @@ For every enabled source and configured amount, the app creates:
 - `{source} {amount}l Händler`
 - `{source} {amount}l Lieferdauer`
 - `{source} {amount}l Angebote`
+- `{source} {amount}l Anbieter 01` through `{source} {amount}l Anbieter 10`
+
+The provider-name sensors expose price, total price, delivery, rating and rank as attributes.
 
 It also creates:
 
