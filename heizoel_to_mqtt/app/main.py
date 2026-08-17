@@ -376,16 +376,16 @@ def load_options() -> Options:
     else:
         raw = {}
     return Options(
-        postal_code=str(raw.get("postal_code", os.getenv("POSTAL_CODE", ""))).strip(),
-        amounts=parse_amounts(str(raw.get("amounts", os.getenv("AMOUNTS", "3000")))),
+        postal_code=str(raw.get("plz", raw.get("postal_code", os.getenv("POSTAL_CODE", "")))).strip(),
+        amounts=parse_amounts(str(raw.get("amount", raw.get("amounts", os.getenv("AMOUNTS", "3000"))))),
         interval=max(30, int(raw.get("interval", os.getenv("INTERVAL", "60")))),
-        esyoil_enabled=bool(raw.get("esyoil_enabled", True)),
-        heizoel24_de_enabled=bool(raw.get("heizoel24_de_enabled", True)),
-        heizoel24_at_enabled=bool(raw.get("heizoel24_at_enabled", False)),
+        esyoil_enabled=bool(raw.get("esyActive", raw.get("esyoil_enabled", True))),
+        heizoel24_de_enabled=bool(raw.get("hoDe", raw.get("heizoel24_de_enabled", True))),
+        heizoel24_at_enabled=bool(raw.get("hoAt", raw.get("heizoel24_at_enabled", False))),
         unloading_points=max(1, min(9, int(raw.get("unloading_points", 1)))),
         payment_type=str(raw.get("payment_type", "ec")),
-        product=str(raw.get("product", "normal")),
-        delivery_times=str(raw.get("delivery_times", "normal")),
+        product=str(raw.get("prod", raw.get("product", "normal"))),
+        delivery_times=str(raw.get("deliveryTimes", raw.get("delivery_times", "normal"))),
         hose=str(raw.get("hose", "fortyMetre")),
         short_vehicle=str(raw.get("short_vehicle", "withTrailer")),
         log_response_details=bool(raw.get("log_response_details", False)),

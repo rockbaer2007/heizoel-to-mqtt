@@ -21,7 +21,7 @@ Adapted from and inspired by the original ioBroker adapter:
    ```
 
 5. Install **Heizöl to MQTT**.
-6. Configure postal code, amounts and sources.
+6. Configure `plz`, `amount` and sources.
 7. Start the app.
 
 ## Features
@@ -30,8 +30,11 @@ Adapted from and inspired by the original ioBroker adapter:
 - Heizöl24 Germany price lookup.
 - Heizöl24 Austria price lookup.
 - Multiple liter amounts, for example `1000,2000,3000`.
+- Configuration keys aligned with the original ioBroker masks, for example `plz`, `amount`, `esyActive`, `deliveryTimes`, `payment_type`, `prod`, `unloading_points`, `hose`, `short_vehicle`, `hoDe` and `hoAt`.
 - MQTT Discovery sensors for price per 100 liters, total price, dealer, delivery days and offer count.
 - Attributes with the best offer and selected request parameters.
+
+Heizöl24 uses postal code and amount like the original adapter note says. The detailed delivery, payment, product, hose and vehicle options are used for Esyoil.
 
 ## Privacy
 

@@ -26,6 +26,25 @@ It also creates:
 - Heizöl24 DE
 - Heizöl24 AT
 
+## Configuration Mask
+
+The visible configuration keys follow the original ioBroker adapter masks:
+
+- `plz`
+- `amount`
+- `interval`
+- `esyActive`
+- `deliveryTimes`
+- `payment_type`
+- `prod`
+- `unloading_points`
+- `hose`
+- `short_vehicle`
+- `hoDe`
+- `hoAt`
+
+Heizöl24 uses postal code and amount like the original adapter note says. The detailed delivery, payment, product, hose and vehicle options are used for Esyoil.
+
 ## Notes
 
 The external endpoints are public website endpoints, not official stable APIs. They may change without notice.
