@@ -51,6 +51,13 @@ class OfferResult:
     delivery_date: str
     rating: float | None
 
+    def price_per_liter(self, amount: int) -> float | None:
+        if self.price_per_100l is not None:
+            return round(self.price_per_100l / 100, 4)
+        if self.total_price is not None and amount > 0:
+            return round(self.total_price / amount, 4)
+        return None
+
 
 @dataclass(frozen=True)
 class PriceResult:
@@ -254,11 +261,15 @@ class MqttPublisher:
                 offer = next((item for item in result.offers if item.index == index), None)
                 offer_prefix = f"{prefix}/offers/{index:02d}"
                 self._publish(f"{offer_prefix}/dealer", offer.dealer if offer else "")
+                self._publish_number(f"{offer_prefix}/total_price", offer.total_price if offer else None)
+                self._publish_number(f"{offer_prefix}/price_per_liter", offer.price_per_liter(result.amount) if offer else None)
+                self._publish_number(f"{offer_prefix}/price_per_100l", offer.price_per_100l if offer else None)
                 self._publish_json(f"{offer_prefix}/attributes", {
                     "source": result.source_name,
                     "amount": result.amount,
                     "postal_code": self.options.postal_code,
                     "rank": index,
+                    "price_per_liter": offer.price_per_liter(result.amount) if offer else None,
                     "price_per_100l": offer.price_per_100l if offer else None,
                     "total_price": offer.total_price if offer else None,
                     "dealer": offer.dealer if offer else "",
@@ -358,6 +369,36 @@ class MqttPublisher:
                         "state_topic": f"{offer_state_prefix}/dealer",
                         "json_attributes_topic": f"{offer_state_prefix}/attributes",
                         "icon": "mdi:store",
+                        "device": self._device(),
+                    })
+                    self._publish_config("sensor", f"{object_prefix}_offer_{index:02d}_total_price", {
+                        "name": f"{source_name} {amount}l Anbieter {index:02d} Gesamtpreis",
+                        "unique_id": f"heizoel_to_mqtt_{object_prefix}_offer_{index:02d}_total_price",
+                        "state_topic": f"{offer_state_prefix}/total_price",
+                        "json_attributes_topic": f"{offer_state_prefix}/attributes",
+                        "unit_of_measurement": "EUR",
+                        "state_class": "measurement",
+                        "icon": "mdi:cash",
+                        "device": self._device(),
+                    })
+                    self._publish_config("sensor", f"{object_prefix}_offer_{index:02d}_price_per_liter", {
+                        "name": f"{source_name} {amount}l Anbieter {index:02d} Preis pro Liter",
+                        "unique_id": f"heizoel_to_mqtt_{object_prefix}_offer_{index:02d}_price_per_liter",
+                        "state_topic": f"{offer_state_prefix}/price_per_liter",
+                        "json_attributes_topic": f"{offer_state_prefix}/attributes",
+                        "unit_of_measurement": "EUR/L",
+                        "state_class": "measurement",
+                        "icon": "mdi:currency-eur",
+                        "device": self._device(),
+                    })
+                    self._publish_config("sensor", f"{object_prefix}_offer_{index:02d}_price_per_100l", {
+                        "name": f"{source_name} {amount}l Anbieter {index:02d} Preis pro 100l",
+                        "unique_id": f"heizoel_to_mqtt_{object_prefix}_offer_{index:02d}_price_per_100l",
+                        "state_topic": f"{offer_state_prefix}/price_per_100l",
+                        "json_attributes_topic": f"{offer_state_prefix}/attributes",
+                        "unit_of_measurement": "EUR/100L",
+                        "state_class": "measurement",
+                        "icon": "mdi:currency-eur",
                         "device": self._device(),
                     })
 

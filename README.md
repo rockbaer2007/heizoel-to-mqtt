@@ -34,7 +34,7 @@ Adapted from and inspired by the original ioBroker adapter:
 - Configuration keys aligned with the original ioBroker masks, for example `plz`, `amount`, `esyActive`, `deliveryTimes`, `payment_type`, `prod`, `unloading_points`, `hose`, `short_vehicle`, `hoDe` and `hoAt`.
 - German and English Home Assistant configuration translations.
 - MQTT Discovery sensors for price per 100 liters, total price, dealer, delivery days and offer count.
-- MQTT Discovery sensors for the provider names of the first 10 offers per source and amount.
+- MQTT Discovery sensors for the first 10 offers per source and amount: provider name, total price, price per liter and price per 100 liters.
 - Attributes with the best offer and selected request parameters.
 
 Heizöl24 uses postal code and amount like the original adapter note says. The detailed delivery, payment, product, hose and vehicle options are used for Esyoil.

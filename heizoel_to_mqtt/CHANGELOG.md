@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.10
+
+- Added total price, price per litre and price per 100 litres as separate entities for each of the first 10 offers.
+
 ## 0.1.9
 
 - Added MQTT Discovery sensors for the provider names of the first 10 offers per source and amount.

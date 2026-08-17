@@ -42,13 +42,14 @@ Heizöl24 uses postal code and amount like the original adapter note says. The d
 
 ## Offer Entities
 
-For each enabled source and amount, the app publishes up to 10 offer-provider sensors:
+For each enabled source and amount, the app publishes up to 10 offer groups. Each group has four entities:
 
 - `{source} {amount}l Anbieter 01`
-- ...
-- `{source} {amount}l Anbieter 10`
+- `{source} {amount}l Anbieter 01 Gesamtpreis`
+- `{source} {amount}l Anbieter 01 Preis pro Liter`
+- `{source} {amount}l Anbieter 01 Preis pro 100l`
 
-The state is the provider name. Attributes contain rank, price per 100 litres, total price, delivery days, delivery date, rating and currency.
+The provider entity state is the provider name. Price entities use numeric states. Attributes contain rank, delivery days, delivery date, rating and currency.
 
 ## Attribution
 
