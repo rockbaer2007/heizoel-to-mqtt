@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.13
+
+- Accept legacy hose values with spaces (`40 m`, `60 m`, `80 m`) so existing Home Assistant app options can be saved and migrated.
+
 ## 0.1.12
 
 - Reduced offer entities from 10 to 6 provider groups.

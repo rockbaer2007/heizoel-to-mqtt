@@ -30,7 +30,7 @@ The app is intended for Germany and Austria only. Use German or Austrian postal 
 
 `payment_type` uses the visible payment names from the ioBroker mask: `EC-Karte`, `Barzahlung`, `Ratenkauf`, `Rechnung`, `Lastschrift` and `Vorkasse`.
 
-`hose` offers exactly three values: `40m`, `60m` and `80m`. `short_vehicle` is shown as `Tankwagen` and accepts `mit Anhänger möglich` or `ohne Anhänger`.
+`hose` offers the values `40m`, `60m` and `80m`. Existing saved values with a space, such as `40 m`, are accepted so Home Assistant can save older configurations. `short_vehicle` is shown as `Tankwagen` and accepts `mit Anhänger möglich` or `ohne Anhänger`.
 
 In the German Home Assistant UI, `esyActive` is shown as `EasyOil aktivieren`. `hoDe` and `hoAt` are shown as `Heizöl24 Deutschland aktivieren (Nur PLZ und Menge wird übernommen)` and `Heizöl24 Österreich aktivieren (Nur PLZ und Menge wird übernommen)`.
 
