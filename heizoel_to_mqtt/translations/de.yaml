@@ -1,0 +1,40 @@
+configuration:
+  plz:
+    name: Postleitzahl
+    description: Postleitzahl für die Preisabfrage.
+  amount:
+    name: Menge in Litern
+    description: Eine oder mehrere Mengen in Litern, mit Komma getrennt, zum Beispiel 1000,2000,3000.
+  interval:
+    name: Aktualisierungsintervall
+    description: Abrufintervall in Minuten. Minimum ist 30 Minuten.
+  esyActive:
+    name: EsyOil aktivieren
+    description: Preise über EsyOil abfragen.
+  deliveryTimes:
+    name: Liefertermin
+    description: Liefertermin fuer die EsyOil-Abfrage.
+  payment_type:
+    name: Zahlungsart
+    description: Zahlungsart für die EsyOil-Abfrage.
+  prod:
+    name: Sorte
+    description: Heizöl-Sorte für die EsyOil-Abfrage.
+  unloading_points:
+    name: Entladestellen
+    description: Anzahl der Entladestellen.
+  hose:
+    name: Schlauchlänge
+    description: Benötigte Schlauchlänge.
+  short_vehicle:
+    name: Kurzes Fahrzeug
+    description: Auswahl, ob ein Fahrzeug ohne Anhänger benötigt wird.
+  hoDe:
+    name: Heizöl24 Deutschland aktivieren
+    description: Preise über Heizöl24 Deutschland abfragen.
+  hoAt:
+    name: Heizöl24 Österreich aktivieren
+    description: Preise über Heizöl24 Österreich abfragen.
+  log_response_details:
+    name: Rohantworten protokollieren
+    description: Anbieter-Antworten im App-Protokoll ausgeben. Nur zur Fehlersuche aktivieren.
