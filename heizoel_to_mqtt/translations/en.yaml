@@ -9,17 +9,17 @@ configuration:
     name: Update interval
     description: Polling interval in minutes. The minimum is 30 minutes.
   esyActive:
-    name: Enable EsyOil
-    description: Fetch prices from EsyOil.
+    name: Enable EasyOil
+    description: Fetch prices from EasyOil.
   deliveryTimes:
     name: Delivery time
-    description: Delivery time used for the EsyOil request, matching the ioBroker mask.
+    description: Delivery time used for the EasyOil request, matching the ioBroker mask.
   payment_type:
     name: Payment method
-    description: Payment method used for the EsyOil request.
+    description: Payment method used for the EasyOil request.
   prod:
     name: Product type
-    description: Heating-oil product type used for the EsyOil request.
+    description: Heating-oil product type used for the EasyOil request.
   unloading_points:
     name: Unloading points
     description: Number of unloading points.
@@ -30,11 +30,11 @@ configuration:
     name: Short vehicle
     description: Select whether a vehicle without trailer is required.
   hoDe:
-    name: Enable Heizöl24 Germany
-    description: Fetch prices from Heizöl24 Germany. Valid for Germany only.
+    name: Enable Heizöl24 Germany (only postal code and amount are used)
+    description: Fetch prices from Heizöl24 Germany. Valid for Germany only; postal code and amount are used.
   hoAt:
-    name: Enable Heizöl24 Austria
-    description: Fetch prices from Heizöl24 Austria. Valid for Austria only.
+    name: Enable Heizöl24 Austria (only postal code and amount are used)
+    description: Fetch prices from Heizöl24 Austria. Valid for Austria only; postal code and amount are used.
   log_response_details:
     name: Log raw responses
     description: Write provider responses to the app log. Enable only for troubleshooting.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5
+
+- Renamed the visible EasyOil switch label.
+- Added the postal-code-and-amount note to the visible Heizöl24 provider switch labels.
+
 ## 0.1.4
 
 - Changed visible delivery time options to the German ioBroker mask labels.
